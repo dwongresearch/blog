@@ -1,0 +1,41 @@
+baseURL = "http://dwongresearch.com/"
+languageCode = "en-us"
+title = "DWongResearch Blog"
+
+theme = "hugo-theme-dream"
+enableRobotsTXT = true
+[params]
+
+# general
+headerTitle="DWongResearch Blog"
+author="dwongresearch"
+description="DWongResearch Blog"
+
+background="#fff"
+motto="Untangling Our World"
+email = "dwongresearch0@gmail.com"
+github = "dwongresearch"
+siteStartYear = 2021
+twitter="dwongresearch"
+
+# search
+enableSearch = true
+
+# options
+rss = true
+showSummaryCoverInPost = true
+hasTwitterEmbed = true
+# reversePostAndAside = true
+# shareInAside = true
+fixedNav = true
+collapsibleTags = true
+collapseBySummary = true
+
+customCSS = ["css/custom.css"]
+
+# mathjax
+mathjax = true
+
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'

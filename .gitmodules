@@ -1,0 +1,4 @@
+[submodule "dwongresarchblog/public"]
+	path = dwongresarchblog/public
+	url = https://github.com/dwongresearch/dwongresearch.com.git
+	branch = main

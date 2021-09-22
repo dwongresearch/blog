@@ -1,6 +1,7 @@
 ---
 
 headless: true
+draft: false
 
 ---
 

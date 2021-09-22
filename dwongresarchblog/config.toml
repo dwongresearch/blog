@@ -23,13 +23,13 @@ enableSearch = true
 
 # options
 rss = true
-showSummaryCoverInPost = true
+#showSummaryCoverInPost = true
 hasTwitterEmbed = true
 # reversePostAndAside = true
-# shareInAside = true
+shareInAside = true
 fixedNav = true
-collapsibleTags = true
-collapseBySummary = true
+#collapsibleTags = true
+#collapseBySummary = true
 
 customCSS = ["css/custom.css"]
 
@@ -37,5 +37,5 @@ customCSS = ["css/custom.css"]
 mathjax = true
 
 [taxonomies]
-  category = 'categories'
-  tag = 'tags'
+  category = ''
+  tag = ''

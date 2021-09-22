@@ -17,7 +17,7 @@ tags:
 draft: False
 ---
 
-"Massive Passive” has heavily influenced the equities sector, completely changing the dynamics of the stock market and the make-up of its participants. Now more people are getting exposure to commodities via long-only indexes and swap products. I am taking Irwin and Sanders's paper *[The Impact of Index and Swap Funds on Commodity Futures Markets](https://www.oecd-ilibrary.org/docserver/5kmd40wl1t5f-en.pdf?expires=1628413452&id=id&accname=guest&checksum=3B53FAD94ECD6D2C200D23AD34C0FA5E)* and extending it.
+**Introduction:** "Massive Passive” has heavily influenced the equities sector, completely changing the dynamics of the stock market and the make-up of its participants. Now more people are getting exposure to commodities via long-only indexes and swap products. I am taking Irwin and Sanders's paper *[The Impact of Index and Swap Funds on Commodity Futures Markets](https://www.oecd-ilibrary.org/docserver/5kmd40wl1t5f-en.pdf?expires=1628413452&id=id&accname=guest&checksum=3B53FAD94ECD6D2C200D23AD34C0FA5E)* and extending it.
 
 <!--more-->
 

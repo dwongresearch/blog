@@ -17,7 +17,6 @@ tags:
   - Volatility
 # nolastmod: true
 draft: false
-card: summary
 image: /plots/autocorr/WLRatioStop1.png
 ---
 

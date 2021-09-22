@@ -6,8 +6,7 @@ author: Derek Wong
 # avatar: /img/author.jpg
 # authorlink: https://author.site
 cover: /plots/autocorr/WLRatioStop1.png
-images:
-  - /plots/autocorr/WLRatioStop1.png
+og_image: /plots/autocorr/WLRatioStop1.png
 categories:
   - Exits
   - SyntheticData

@@ -17,6 +17,8 @@ tags:
   - Volatility
 # nolastmod: true
 draft: false
+card: summary
+image: /plots/autocorr/WLRatioStop1.png
 ---
 
 **Abstract:** I examine trailing stops in real markets and various autocorrelation and volatility regimes using synthetic data. Exits are notoriously under-studied and may be a source of edge. I examine three key hypotheses using my take on Tom Basso's random entry method to remove entry from the equation. 

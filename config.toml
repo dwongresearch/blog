@@ -18,6 +18,9 @@ github = "dwongresearch"
 siteStartYear = 2021
 twitter="dwongresearch"
 
+# Google Analytics 4
+googleAnalyticsID = "G-LNMFPS47RB"
+
 # search
 enableSearch = true
 

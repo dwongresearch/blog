@@ -224,6 +224,26 @@ Here I take the average of all Average Trade values with respect to annualized v
 
 We see something interesting here, which I did not expect but intuitively makes sense. Smaller stop values work well with high amounts of autocorrelation. They can outperform the larger stop values. This effect is because, in higher autocorrelated markets, you can take less risk and loss less at the top of a trend than with a larger stop, thus catching more of the move for less risk. This only occurs because the signal-to-noise ratio is higher. This effect could be pumping up the low stop multiplier values in our other mean of average trade metrics. 
 
+<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://dwongresearch.us5.list-manage.com/subscribe/post?u=142fa4a592b63e3b9722442ef&amp;id=6c4483a227" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_142fa4a592b63e3b9722442ef_6c4483a227" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+
 ## Conclusion
 
 I examined the effect of autocorrelation and volatility on random entries and trailing stop losses. I recreated a similar system to the Tom Basso/Van Tharpe method to proxy what I was doing with the synthetic data. By using synthetic data with controllable parameters, I could disentangle autocorrelation from drift and other factors present in actual market data. 

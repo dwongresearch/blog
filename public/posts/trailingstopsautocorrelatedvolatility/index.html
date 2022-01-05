@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Trailing Stops in Various AutoCorrelation and Volatility Regimes | DWongResearch Blog</title>
+
+    
+
+
+
+<meta name="author" content="Derek Wong" />
+<meta name="description" content="Abstract: I examine trailing stops in real markets and various autocorrelation and volatility regimes using synthetic data. Exits are notoriously under-studied and may be a source of edge. I examine three key hypotheses using my take on Tom Basso&amp;rsquo;s random entry method to remove entry from the equation.
+" />
+
+
+
+<meta name="generator" content="Hugo 0.88.1" />
+
+<link rel="canonical" href="https://www.dwongresearch.com/posts/trailingstopsautocorrelatedvolatility/" />
+
+
+<meta property="og:title" content="Trailing Stops in Various AutoCorrelation and Volatility Regimes" />
+<meta property="og:description" content="Abstract: I examine trailing stops in real markets and various autocorrelation and volatility regimes using synthetic data. Exits are notoriously under-studied and may be a source of edge. I examine three key hypotheses using my take on Tom Basso&rsquo;s random entry method to remove entry from the equation." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.dwongresearch.com/posts/trailingstopsautocorrelatedvolatility/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-22T20:34:36+08:00" />
+<meta property="article:modified_time" content="2021-09-22T20:34:36+08:00" />
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Trailing Stops in Various AutoCorrelation and Volatility Regimes"/>
+<meta name="twitter:description" content="Abstract: I examine trailing stops in real markets and various autocorrelation and volatility regimes using synthetic data. Exits are notoriously under-studied and may be a source of edge. I examine three key hypotheses using my take on Tom Basso&rsquo;s random entry method to remove entry from the equation."/>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<link rel="stylesheet" href="/css/icomoon.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/css/OverlayScrollbars.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css">
+<link rel="stylesheet" href="/css/site.css" />
+
+<style>
+  .ui.header a:not(.item, .ui.button):hover {
+    text-decoration: underline;
+  }
+
+  
+
+  
+
+  
+  body.default {
+    
+    background-color: #fff;
+    
+
+    
+  }
+  
+
+  
+</style>
+
+
+    
+
+
+
+
+
+
+
+    
+  </head>
+
+  <body class="default">
+    
+<nav class="ui secondary menu dream-menu dream-nav">
+
+  <a class="item dream-flip-toggle" title="Flip it!">
+    <i class="large link bullseye icon"></i>
+  </a>
+  <a class="item" href="https://www.dwongresearch.com/" title="Home">
+    <i class="large link home icon"></i>
+  </a>
+  
+  
+  <a class="item" title="Search" onclick="toggleSearch(event)">
+    <i class="large link search icon"></i>
+  </a>
+  
+</nav>
+
+    <div class="flip-container">
+      <div class="flipper">
+        <section class="front">
+          <div class="dream-max-width">
+            
+<div class="ui relaxed centered grid dream-grid dream-grid-single">
+  
+  
+  
+  
+
+  
+  <aside class="sixteen wide mobile sixteen wide tablet three wide computer column dream-single-aside">
+    
+    <div class="ui segment toc">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#data">Data</a>
+      <ul>
+        <li><a href="#synthetic-data-methodology">Synthetic Data Methodology</a></li>
+        <li><a href="#aside-why-use-synthetic-data">Aside: Why use synthetic data?</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-random-entry-and-trailing-exit">The Random Entry and Trailing Exit</a></li>
+    <li><a href="#what-is-the-actual-characteristics-of-real-markets">What is the actual characteristics of real markets?</a></li>
+    <li><a href="#random-entry--trailing-stop-on-real-markets">Random Entry / Trailing Stop on Real Markets</a></li>
+    <li><a href="#synthetic-data-monte-carlo">Synthetic Data Monte Carlo</a>
+      <ul>
+        <li><a href="#hypothesis-1-trailing-stop-losses-provide-an-edge-in-autocorrelated-markets">Hypothesis 1: Trailing stop losses provide an edge in autocorrelated markets.</a></li>
+        <li><a href="#hypothesis-2-trailing-stop-losses-alter-the-trade-profit-statistics-into-positive-skew-bigger-winners-than-losers">Hypothesis 2: Trailing stop losses alter the trade profit statistics into positive skew (bigger winners than losers)</a></li>
+        <li><a href="#hypothesis-3-trailing-stops-distance-from-entry-become-negative-expected-value-if-it-is-too-close">Hypothesis 3: Trailing stops distance from entry become negative expected value if it is &ldquo;too close.&rdquo;</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+    
+
+    
+    <div class="ui segment">
+  <button
+    class="ui circular icon button save-as-image"
+    title="Save as image"
+    onclick="savePostAsImg()">
+    <i class="save icon"></i>
+  </button>
+  <a href="https://twitter.com/intent/tweet?text=Trailing%20Stops%20in%20Various%20AutoCorrelation%20and%20Volatility%20Regimes&url=https%3a%2f%2fwww.dwongresearch.com%2fposts%2ftrailingstopsautocorrelatedvolatility%2f" class="ui circular twitter icon button">
+    <i class="twitter icon"></i>
+  </a>
+  <a href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fwww.dwongresearch.com%2fposts%2ftrailingstopsautocorrelatedvolatility%2f" class="ui circular facebook icon button">
+    <i class="facebook icon"></i>
+  </a>
+</div>
+
+    
+  </aside>
+  
+  <div class="sixteen wide mobile sixteen wide tablet ten wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">Trailing Stops in Various AutoCorrelation and Volatility Regimes<span class="sub header">
+            <span class="left">
+              @
+              
+                
+                  Derek Wong
+                
+              
+
+              | 
+                  
+                    Wednesday, Sep 22, 2021
+                  
+                
+
+              | 18 minutes read
+
+              
+              | Update at
+                
+                  
+                    Wednesday, Sep 22, 2021
+                  
+                
+              
+            </span>
+
+            
+          </span>
+        </h1>
+      </header>
+
+      <article class="main">
+        
+
+        <p><strong>Abstract:</strong> I examine trailing stops in real markets and various autocorrelation and volatility regimes using synthetic data. Exits are notoriously under-studied and may be a source of edge. I examine three key hypotheses using my take on Tom Basso&rsquo;s random entry method to remove entry from the equation.</p>
+<p><em>Disclaimer: Not financial advice, only my own opinions. This is not to encourage nor promote taking any trades, positions, or investments of any kind.  Any information contained in this website is for informational purposes only and to be taken as is. DWongResearch and the Author (Derek Wong) has done their best to ensure accurate information. Regardless of anything contrary, nothing available on this website should be understood as a recommendation, consult a licensed financial professional in your jurisdiction.</em></p>
+<h2 id="introduction">Introduction</h2>
+<p>Entries get all of the attention, but exits are the oft-overlooked aspect of a trade. Everyone will need to get out sometime, even if that is three generations from now. Exits are also extremely hard to investigate as individual contributors due to the nature of being second in the order of operations. A trader can only have an exit once they are already in a position. This order of operations confounds any result they may achieve.</p>
+<p>I will disentangle the factors of specific market autocorrelation by examining a sample set of futures markets (S&amp;P 500 E-mini, Gold, WTI Crude, Ten Year Treasury, Corn, and Euro/Usd). We will create a proxy trailing stop system based on price standard deviations. I was inspired by Van K. Tharp&rsquo;s 1998 book <em>Trade Your Way to Financial Freedom</em>. He mentions a seminar with Tom Basso explaining exits and position sizing simulation with a coin-flip entry on page 200. I will use this coin flip method to reduce the confounding factor of entry.</p>
+<p>I have developed a method to use simulated data to further distance the underlying instrument and level of autocorrelation to the result. By implementing an autoregressive stochastic process, I will tune the amount of volatility, autocorrelation at lag one, annualized volatility, and drift.</p>
+<p><strong>Hypotheses</strong></p>
+<ol>
+<li>Trailing stop losses provide an edge in autocorrelated markets.</li>
+<li>Trailing stop losses alter the trade profit statistics into positive skew (bigger winners than losers).</li>
+<li>Trailing stops distance from entry become negative expected value if it is &ldquo;too close.&rdquo; We will define too close as some distance of standard deviations of price away from the entry value.</li>
+</ol>
+<h2 id="data">Data</h2>
+<p>We will use continuous futures contracts using the prompt month and the Panama method for the futures. S&amp;P 500 E-mini (ES), Gold (GC), WTI Crude (CL), Ten Year Treasury (TY), Corn (C), and Euro/Usd (EC).</p>
+<p><em>Table 1 Data Periods</em></p>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>ES</th>
+<th>C</th>
+<th>CL</th>
+<th>GC</th>
+<th>EC</th>
+<th>TY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start</td>
+<td>09/09/1997</td>
+<td>11/9/1991</td>
+<td>11/9/1991</td>
+<td>11/9/1991</td>
+<td>19/5/1998</td>
+<td>11/9/1991</td>
+</tr>
+<tr>
+<td>End</td>
+<td>10/9/2021</td>
+<td>10/9/2021</td>
+<td>10/9/2021</td>
+<td>10/9/2021</td>
+<td>10/9/2021</td>
+<td>10/9/2021</td>
+</tr>
+</tbody>
+</table>
+<h3 id="synthetic-data-methodology">Synthetic Data Methodology</h3>
+<p>I create an autoregressive stochastic process of lag one $AR(1)$ to simulate autocorrelated returns of a financial instrument. We will have direct control over the drift (mean), autocorrelation, volatility, and length. Then by using a multiplicative process, we can turn the return stream back into prices starting at 1000.</p>
+<p>Definition below taken from Professor Gary A Napier&rsquo;s time series <a href="https://bookdown.org/gary_a_napier/time_series_lecture_notes/ChapterThree.html">lecture notes</a> from University of Glasgow.</p>
+<blockquote>
+<p>Let $Z_t$ be a purely random process (i.e. each $Z_t$ is independent) with mean 0 and variance $\sigma^2_2$. An **Autoregressive process of order $p$ **, denoted $AR(p)$, is given by</p>
+<p>$X_t=α_1X_{t−1}+…+α_pX_{t−p}+Z_tX_t$</p>
+<p>where we assume $X_0=X_{−1}=…=X_{1−p}=0$.</p>
+<p>In this model correlation is introduced between the random variables by regressing $X_t$ on past values $X_{t−1},…,X_{t−p}$. The parameters $α_1,…,α_p$ are the coefficients of the autoregressive process, where $α_1$ is called the lag 1 coefficient, $α_2$ is called the lag 2 coefficient and so on.</p>
+<p>This model essentially regresses $X_t$ on its own past values, which is the reason for the prefix <em>auto</em>. The rest of this chapter describes the properties of autoregressive processes, discusses how to choose the order pp when modelling real data, and describes estimation of the coefficients $α_1,…,α_p$ and $σ^2_z$. For simplicity, we begin by describing the properties of a first order process.</p>
+<p>An $AR(1)$ process is given by</p>
+<p>$X_t=αX_{t−1}+Z_t$</p>
+<p>where $Z_t$ is a purely random process with mean zero and variance $σ^2_z$ and $X_0=0$.</p>
+</blockquote>
+<p>There are few properties here that I will exploit, which allow me to generate infinite auto correlated returns. Let $\rho$ be a positive autocorrelation coefficient, and $\mu$ be the mean of the Gaussian normal distribution. We can then use the short-term memory of the $\alpha X_{t-1} = \mu * (1-\rho) $to create the next value maintaining a similar correlation structure and drift. We can then continuously repeat this recursive sequence until we have a series to our desired length.</p>
+<p>Then I convert the returns into a price series starting at 1000 by $s_{-1} * r_0 + s_{-1}$ where $s_{-1}$ is the previously generated spot price, and $r$ is the current return. I generate *15000 samples per series* which is *59.5 trading years* (business days) or 41 total years. Due to the ease of use, I will use the latter for charts and date convention.</p>
+<p>All of my price series start at the year 1900 so it cannot be confused with real data and an initial price of 1000, this method generates only one price per day akin to closing prices only.</p>
+<p><em>Figure 1: Example Synthetic Series</em></p>
+<p><em><img src="/plots/autocorr/syntheticSeries.png" alt="syntheticSeries"></em></p>
+<p>Figure 1 shows an example synthetic series with an Auto Correlation Function (ACF) realized of $0.1539$, and my model parameters were mean $\mu=0$, correlation $\rho = .15$, and 15000 samples or trading days. So there is variance around my expected parameters due to the random Gaussian distribution; however, it does come out relatively well. Although the returns do not have an underlying positive bias due to $\mu=0$, the autocorrelation alone creates &lsquo;trends.&rsquo; This compounding effect also creates different types of &lsquo;trends&rsquo; some fast and sharp (e.g., 1927 - 1931), some slow and steady (e.g., 1900 to 1905), and spectacular crashes (e.g., 1939-1941).</p>
+<h3 id="aside-why-use-synthetic-data">Aside: Why use synthetic data?</h3>
+<p>Synthetic data is an essential tool, especially when working with datasets that have limited historical sources. For example, emerging markets, cryptocurrencies, or exotic markets. I believe this is the most commonly thought of usage. However, one that is highly underestimated is the ability to create &lsquo;laboratory&rsquo; like conditions, especially in financial time series. Financial time series are complex adaptive systems with various agents and are exceedingly difficult to model. This reason is why most prefer to use only actual historical data. However, this has another drawback other than historical data duration. Due to the multitude of agents' nature, actions/reactions, feedback loops, and adaptivity, it can be challenging to disentangle why a specific strategy may work. Regressions can help isolate the percentage of which factors affect your strategy or drive the time series at a specific timeframe; however, the factors will be mixing in a constantly shifting way. Although pure market replication is something that I think machine learning and generative adversarial networks may help in the future. That is not what I am trying to do here.</p>
+<p>I am creating a purely synthetic dataset that exhibits attributes of the actual dataset. However, it is simplified as all models are. The benefit to the researcher is the control over the parameters, e.g., length, volatility, autocorrelation, as we have used here. Working as a quantitative researcher in a noisy environment makes disentangling confounding factors extremely difficult. By isolating the parts of the stochastic process, I find important and creating a clean environment tuned to create both beneficial and harsh situations for my hypothesis. I can do two things. First, remove confounding factors, so I know that I am testing against removing noise from my results. Second, able to determine boundary conditions to my thesis by expanding underlying timeseries parameters beyond normal conditions.</p>
+<h2 id="the-random-entry-and-trailing-exit">The Random Entry and Trailing Exit</h2>
+<p>Our &ldquo;trading strategy,&rdquo; if we can call it that uses a random number generator (Numpy&rsquo;s implementation) to &ldquo;flip a coin,&rdquo; with parameters $\ge .50$ is long, and $&lt;.50$ is short. This $\ge$ does introduce some bias, although minimal would occur when the float conversion of .50 and the randomly generated digit to 8 decimals is precisely the same. The system will take a random entry on day one. If it is closed by the trailing stop at any point on the next day, it will flip again. Someone in Jerry Parker&rsquo;s clubhouse mentioned a potential bias with this method, that you would be taking a &lsquo;pull back&rsquo; or mean reversion trade upon instant reentry. I do not have the source material. However, I disagree as, over many trials, you will end up with an equal amount of trades that go in the same direction as those in the opposite direction.</p>
+<p>Detailing the exit is straightforward. I use a price-based standard deviation with a look back and a multiplier (e.g. 30 days look back and 3 x multiplier). If the closing price of a given day is below (above) on the next day, I exit at that day&rsquo;s closing price. This does add an element of slippage, and again due to many trials should equalize. The two free parameters in this strategy is the look back for price standard deviation and its multiplier.</p>
+<p>Below is a chart with arbitrary sample parameters for illustration.</p>
+<p><em>Figure 2: Random entry and trailing exit on synthetic series</em><img src="/plots/autocorr/syntheticwithEntry.png" alt="syntheticwithEntry"></p>
+<p><em>Figure 3: Zoom in on Figure 2 for detail</em></p>
+<p><img src="/plots/autocorr/syntheticwithEntryZoom.png" alt="syntheticwithEntryZoom"></p>
+<p>In Figure 3 we can see a better representation of both choppy markets (1909-1911) where the system is continually reversing or has a long trade that ends as a small loser in Jan 1911. As well as a long term trend trade from Jan 1911 short to the closing in Jul 1913.</p>
+<h2 id="what-is-the-actual-characteristics-of-real-markets">What is the actual characteristics of real markets?</h2>
+<p>Let us examine some actual futures markets and see what are the real results for drift (annualized return), volatilty (annualized volatility) and Auto Correlation Function at lag 1 $ACF(1)$. For those who are familiar with these markets it may give some insight, and allow you to get a better idea of what the values in the synthetic data are similar to. It will also give us a base parameters we can use when we do our parameter sweep later on. I use all of the data listed above.</p>
+<p><em>Table 2: Statistical Characteristics of the Futures Markets</em></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ES</th>
+<th>C</th>
+<th>CL</th>
+<th>GC</th>
+<th>EC</th>
+<th>TY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Drift (Ann. Returns)</td>
+<td>0.059075</td>
+<td>0.031330</td>
+<td>0.072193</td>
+<td>0.076905</td>
+<td>0.002254</td>
+<td>0.007233</td>
+</tr>
+<tr>
+<td>Volatility (Ann. Volatility)</td>
+<td>0.196534</td>
+<td>0.278543</td>
+<td>0.789726</td>
+<td>0.171488</td>
+<td>0.092891</td>
+<td>0.063090</td>
+</tr>
+<tr>
+<td>ACF(1)</td>
+<td>-0.093291</td>
+<td>0.023938</td>
+<td>0.241062</td>
+<td>0.002788</td>
+<td>0.003363</td>
+<td>0.002818</td>
+</tr>
+</tbody>
+</table>
+<p>The S&amp;P 500 (ES) and Crude Oil (CL) are pretty natural to create that mental link. S&amp;P 500 has a positive drift or average annualized return of 5.9% over the period while Crude Oil was at 7.2%. ES has an annualized volatility of about 20%, while CL is much higher at 79%. The ACF is a bit harder as people do not usually think in these terms. For any next day in ES, there is a higher chance of mean reversion (i.e., a positive day is followed by a negative day, vice versa). At the same time, CL has a higher tenancy towards trending (i.e., a positive (negative) day is followed by a positive (negative) day.)</p>
+<p>A question to the reader, does that &lsquo;feel&rsquo; like your experience?</p>
+<h2 id="random-entry--trailing-stop-on-real-markets">Random Entry / Trailing Stop on Real Markets</h2>
+<p>Here we will test the trade statistics of the trading entry and exits as done above. The parameter sets again were chosen arbitrarily as a middle of the road. Our strategy does differ from the original Van Tharpe/Tom Basso in the parameters chosen. However, we are here to prove a robust theory. So it should show similar results given any minor deviations from the original piece. My purpose here is not to prove it is profitable or not, although it would be great if it were. Nevertheless, check our original three hypotheses and see if we can verify the work already done many decades ago.</p>
+<p><em>Figure 4: Random System applied to ES</em></p>
+<p><img src="/plots/autocorr/ESrandom.png" alt="ES random"></p>
+<p>I do not give the multipliers of each future, but only the amount of spot equivalent. That is 1 dollar of profit or loss per point. I have also added the previously found ACF values for reference.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ES</th>
+<th>C</th>
+<th>CL</th>
+<th>GC</th>
+<th>EC</th>
+<th>TY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Average Trade</td>
+<td>-18.70</td>
+<td>-1.89</td>
+<td>0.09</td>
+<td>24.08</td>
+<td>0.01</td>
+<td>-0.76</td>
+</tr>
+<tr>
+<td>Average Win</td>
+<td>203.02</td>
+<td>109.49</td>
+<td>14.97</td>
+<td>154.51</td>
+<td>0.10</td>
+<td>5.14</td>
+</tr>
+<tr>
+<td>Average Loss</td>
+<td>-134.85</td>
+<td>-83.07</td>
+<td>-12.31</td>
+<td>-66.22</td>
+<td>-0.06</td>
+<td>-4.13</td>
+</tr>
+<tr>
+<td>Trades Taken</td>
+<td>32</td>
+<td>20</td>
+<td>33</td>
+<td>22</td>
+<td>23</td>
+<td>22</td>
+</tr>
+<tr>
+<td>ACF(1)</td>
+<td>-0.093291</td>
+<td>0.023938</td>
+<td>0.241062</td>
+<td>0.002788</td>
+<td>0.003363</td>
+<td>0.002818</td>
+</tr>
+</tbody>
+</table>
+<p>The apparent issue with this test is that the sample size is too small. Each asset has a handful of trades ranging from 20 to 33. Total, we have a sample of 152 trades, which is mediocre. Let us revisit the first two of the three hypothesis statements.</p>
+<ol>
+<li>
+<p><em>Trailing stop losses provide an edge in autocorrelated markets.</em></p>
+</li>
+<li>
+<ol>
+<li>Our only example of a negatively autocorrelated market is not profitable when measured by average trade. Our most autocorrelated market is. The rest are borderline and cannot tell given sample size. I am inclined to say there is something, but more work is needed—specifically more samples.</li>
+</ol>
+</li>
+<li>
+<p><em>Trailing stop losses alter the trade profit statistics into positive skew (bigger winners than losers).</em></p>
+</li>
+<li>
+<ol>
+<li>This positive skew hypothesis has been borne out of the results. All assets have a larger Average Win than Average Loss.</li>
+</ol>
+</li>
+</ol>
+<p>Hence questions remain, we must be able to expand the sample size to further answer hypothsis one. Secondly we were unable to touch hypthesis 3 because the volatilities of each asset class are drasticly different and it requires a parameter sweep.</p>
+<h2 id="synthetic-data-monte-carlo">Synthetic Data Monte Carlo</h2>
+<p>I will run 1500 runs per set, with 15000 samples or &lsquo;days,&rsquo; which creates 22,500,000 trading days per parameter combination. With an autocorrelation value ranging from 0 to .30, stop multiplier values (i.e., how many standard deviations) from 0 to 10, and annualized volatility values from 0 to 50. As this is a multidimensional parameter sweep and it is hard to see all in a chart visually, I will go after each of our hypotheses with a set of charts and provide insight as we go along.</p>
+<p>In regards to the number of trades per parameter combination, this is highly variable for each run given entry and exit timing as well as the set of time series parameters to the underlying we apply ranging from 0 to 1,332, with a median of 218 with a total sum of 168,436 trades recorded. This number could be improved with additional compute power and time to increase sample size infinitely. Although with median 10x improvement of sample size and confidence to real markets, I believe makes it reasonable for our uses here.</p>
+<p>Note that we are not changing the drift parameter of the series for these tests. The autocorrelation in the market will create some natural drift component if we measure it as we did for the actual assets. However, I do not want to confound the autocorrelation effect as the drift will create a bias that will increase autocorrelation in the same direction as the drift.</p>
+<h3 id="hypothesis-1-trailing-stop-losses-provide-an-edge-in-autocorrelated-markets">Hypothesis 1: Trailing stop losses provide an edge in autocorrelated markets.</h3>
+<p>To test this, we will look at different levels of autocorrelation. First, the aggregate Average Trade value is -6.12, so we can say very definitively that a random strategy with stop loss over many trials in a pure autocorrelation environment is not the explanatory factor.</p>
+<p>I inspect the relationship of the Average Trade (avgTrade) and the Average Winner/ Average Loser (WLRatio) in relation to the amount of autocorrelation in the series.</p>
+<p><em>Figure 5: Average Trade wrt. AutoCorrelation Factor</em><img src="/plots/autocorr/avgTradeCorr.png" alt="avgTradeCorr"></p>
+<p>Figure 5 shows that no, autocorrelation does not provide a pure edge with a trailing stop. The outlier is the .10 positive value, but all other values are negative. <strong>With this data, I have to conclude that Hypothesis 1 is false and reject the hypothesis.</strong> That does not mean there is not anything that can be learned. Potentially there is an optimal amount of autocorrelation. The smallest autocorrelation values, 0 and 0.05, had the worst performance while adding more reduced it. Also, large amounts like 0.3 did seem to have a positive effect. Some further work could be adding the effect of an underlying drift, which all of the actual asset markets do have. This drift would amount to having a long-term memory in the underlying stochastic process.</p>
+<h3 id="hypothesis-2-trailing-stop-losses-alter-the-trade-profit-statistics-into-positive-skew-bigger-winners-than-losers">Hypothesis 2: Trailing stop losses alter the trade profit statistics into positive skew (bigger winners than losers)</h3>
+<p>I will aggregate the win loss ratio (i.e., the average winning trade / average losing trade) from the total of all potential combinations and look at the results. <em>For all parameter sets the mean win loss ratio was 1.73.</em></p>
+<p>I have created 3d surface plots of 3 sample sets for 1, 5 and 10 precent standard deviation stop losses. For clarity the x axis autocorrelation values ranging from 0  to .30, the y axis is annualized volatility form 0 to .30. (it actually is only approaching 0  $ &lt; 1*10^{-8}$). There is a contour line at 1 where the average winner = the average loser.</p>
+<p><em>Figure 6: 1 multiplier percent Standard Deviation trailing stop loss</em></p>
+<p><img src="/plots/autocorr/WLRatioStop1.png" alt="WLRatioStop1"></p>
+<p><em>Figure 7: 5 multipler Percent Standard Deviation trailing stop loss</em></p>
+<p><img src="/plots/autocorr/WLRatioStop5.png" alt="WLRatioStop5"></p>
+<p><em>Figure 8: 10 multipler Percent Standard Deviation trailing stop loss</em></p>
+<p><img src="/plots/autocorr/WLRatioStop10.png" alt="WLRatioStop10"></p>
+<p>We can see that the majority of all surface areas in all three figures is above the grey contour line at 1. As we increase in multiplier we begin to see more and more surface with less than 1.</p>
+<p><em>Figure 9: Trade Proft and Loss Box Plot</em></p>
+<p><img src="/plots/autocorr/tradePnLBox.png" alt="tradePnLBox"></p>
+<p>Figure 9 plots all trades taken for all simulations and parameter sets (168436 trades). This distribution was so wide due to many outliers in the distribution compared to the inner quartiles. What I can see here is that all trades have a positive skew. The skew from all trades is 6.55.</p>
+<p>Given this information, I <strong>accept Hypothesis 2 as true</strong>. The distribution is significantly different from a normal distribution of random Trade P&amp;Ls. Trailing stops undoubtedly alter the shape of trade results. They <em>are cutting losers and letting winners run.</em> Something heavily discussed is do trend following systems that use a trailing stop create an option like payoffs. From what we have here, we can only answer a partial yes. We can only address the limited downside with an upside positively skewed payoff. We cannot answer anything about convexity. We cannot measure these trade returns against something else as the trade return P&amp;L would also be the instrument P&amp;L less one day lag. If you look at research discussing CTA convexity, it is always in relation to the S&amp;P 500 or other benchmarks. For the simulated data, we have no such benchmark.</p>
+<h3 id="hypothesis-3-trailing-stops-distance-from-entry-become-negative-expected-value-if-it-is-too-close">Hypothesis 3: Trailing stops distance from entry become negative expected value if it is &ldquo;too close.&rdquo;</h3>
+<p>Here I take the average of all Average Trade values with respect to annualized volatility and the stop multiplier value. This means we are aggregating all of the auto correlation values together.</p>
+<p><img src="/plots/autocorr/volStopSurface.png" alt="volStopSurface"></p>
+<p>!Looking across the 2 stop multiplier level vs. the 10 levels, the decay into the trough as designated by the contour line at 0 does show a faster decay of positive average trade for smaller stop multiplier values. I cannot say that anything going towards the left cannot be profitable. It only looks to become much more unstable. At the same time, larger stop values are more stable for more values of levels of annualized volatility. <strong>I have to reject Hypothesis 3</strong> due to the lack of conclusive results. There is some instability, but it may be possible to find small stop multiplier values profitable in some situations. There is also the confounding factor of Auto Correlation which we check below.</p>
+<p><img src="/plots/autocorr/autoCorrStop.png" alt="autoCorrStop"></p>
+<p>We see something interesting here, which I did not expect but intuitively makes sense. Smaller stop values work well with high amounts of autocorrelation. They can outperform the larger stop values. This effect is because, in higher autocorrelated markets, you can take less risk and loss less at the top of a trend than with a larger stop, thus catching more of the move for less risk. This only occurs because the signal-to-noise ratio is higher. This effect could be pumping up the low stop multiplier values in our other mean of average trade metrics.</p>
+<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://dwongresearch.us5.list-manage.com/subscribe/post?u=142fa4a592b63e3b9722442ef&amp;id=6c4483a227" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_142fa4a592b63e3b9722442ef_6c4483a227" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+<h2 id="conclusion">Conclusion</h2>
+<p>I examined the effect of autocorrelation and volatility on random entries and trailing stop losses. I recreated a similar system to the Tom Basso/Van Tharpe method to proxy what I was doing with the synthetic data. By using synthetic data with controllable parameters, I could disentangle autocorrelation from drift and other factors present in actual market data.</p>
+<p>On the proxy Tom Basso system, I found that random entries with a trailing stop can be profitable on highly autocorrelated assets like CL and slightly autocorrelated assets like GC. However, on negatively autocorrelated asset ES, it was negative. In the end, we ended up 50% profitable and 50% unprofitable.</p>
+<p>I tested Hypothesis 1: Trailing stop losses provide an edge in autocorrelated markets. After many Monte Carlo simulations using the AR(1) process, we found that trailing stops are not a definitive way to increase your Average Trade. There is some evidence that more autocorrelation can lift values but not definitively make them positive. Thus I rejected the hypothesis.</p>
+<p>For Hypothesis 2: Trailing stop losses alter the trade profit statistics into positive skew (bigger winners than losers). I definitively showed that all trades, on average, had larger winners than losers for a 1.73 Win-Loss Ratio. This is the most apparent evidence of trailing stops being the bedrock of any trend following strategy. It also clearly shows how it can alter your trade profits by skewing them positively. Hence, I accepted the hypothesis.</p>
+<p>Finally, Hypothesis 3: Trailing stops distance from entry become negative expected value if it is &ldquo;too close.&rdquo; Again I did not have a definitive answer, also rejecting the hypothesis. Nevertheless, all was not lost. I learned something that should have been intuitive and may have been a confounding factor in the results. When assets are highly autocorrelated, smaller stop values are better due to their ability to take and hold positions with less risk and lose fewer profits at the top. This is because, in essence, a higher autocorrelation value is a higher signal-to-noise ratio.</p>
+      </article>
+    </section>
+
+    
+
+    
+
+    
+  </div>
+</div>
+
+
+            <footer class="ui basic center aligned segment" style="background-color: transparent;">
+              
+              <p>© 2021 - 2022 DWongResearch Blog</p>
+              
+
+              <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</p>
+
+              
+            </footer>
+          </div>
+        </section>
+        <section class="back">
+          <div class="dream-max-width">
+            <header class="ui basic very padded segment dream-header">
+  
+
+  <div class="content">
+    <h1 class="ui medium header">DWongResearch Blog<span class="sub header">Untangling Our World</span>
+    </h1>
+
+    <article class="ui horizontal list">
+      
+      <a class="item" href="/posts">
+        <i class="archive icon" title="Archives"></i>
+      </a>
+      
+      <a class="item" href="/categories">
+        <i class="th list icon" title="All Categories"></i>
+      </a>
+      <a class="item" href="/tags">
+        <i class="tags icon" title="All Tags"></i>
+      </a>
+    </article>
+
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+
+    
+
+    
+    
+    
+          <div class="dream-tags">
+          
+          
+          
+            <a class="ui label" href="/tags/autocorrelation/" title="Autocorrelation">
+              Autocorrelation
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/commodities/" title="Commodities">
+              Commodities
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/passive/" title="Passive">
+              Passive
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/process/" title="Process">
+              Process
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/research/" title="Research">
+              Research
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/syntheticdata/" title="SyntheticData">
+              SyntheticData
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/trailingstop/" title="TrailingStop">
+              TrailingStop
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/volatility/" title="Volatility">
+              Volatility
+            </a>
+          
+          </div>
+    
+
+    
+  </div>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+ <script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+       <script type="text/x-mathjax-config">
+         MathJax.Hub.Config({
+           tex2jax: {
+             inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+             processEscapes: true
+           }
+         });
+       </script>
+       <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+       
+<meta property="og:title" content="Trailing Stops in Various AutoCorrelation and Volatility Regimes" />
+<meta property="og:description" content="Abstract: I examine trailing stops in real markets and various autocorrelation and volatility regimes using synthetic data. Exits are notoriously under-studied and may be a source of edge. I examine three key hypotheses using my take on Tom Basso&rsquo;s random entry method to remove entry from the equation." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.dwongresearch.com/posts/trailingstopsautocorrelatedvolatility/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-22T20:34:36+08:00" />
+<meta property="article:modified_time" content="2021-09-22T20:34:36+08:00" />
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LNMFPS47RB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LNMFPS47RB');
+</script>
+
+
+
+</header>
+
+
+
+
+<div class="ui relaxed grid dream-grid dream-back">
+  
+  
+  
+  <div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article class="ui segment markdown-body">
+      <div class="ui medium header">Disclaimer</div>
+      <p><strong>Not financial advice, no recommendations, only my own opinions. Nothing here constitutes a view or opinion from my employer. Please don&rsquo;t sue me.</strong></p>
+<p>Any content or statement on this website is not to encourage nor promote taking any trades, positions, or investments of any kind.  Any information contained in this website is for informational purposes only and to be taken as is. DWongResearch and the Author (Derek Wong) has done their best to ensure accurate information. Regardless of anything contrary, nothing available on this website should be understood as a recommendation, consult a licensed financial professional in your jurisdiction.</p>
+<p><strong>Intellectual property</strong></p>
+<p>I cannot and will not disclose any proprietary information or knowledge developed while working at my current employer or former employers. All research is done on my own and does not constitute any of my employers opinions. Anything you see here is done with publiclally available knowledge or the product of my own personal research done as a private individual.</p>
+    </article>
+  </div>
+  
+  <div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article class="ui segment markdown-body">
+      <div class="ui medium header">About Me</div>
+      <p>I am an alternatives portfolio manager focused on quantitatve and systematic methods using derivatives. Quantitative finance geek, macroeconomics enthusiast, and research addict.</p>
+
+    </article>
+  </div>
+  
+
+  <div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article class="ui segment">
+      <div class="ui medium header">Social Links</div>
+      <nav class="ui secondary menu dream-menu dream-socials">
+  
+  <a class="item" href="/index.xml">
+    <i class="large rss square icon" title="RSS"></i>
+  </a>
+  
+
+  
+  <a class="item" href="mailto:dwongresearch0@gmail.com">
+    <i class="large mail icon" title="Email"></i>
+  </a>
+  
+
+  
+  <a class="item" href="https://twitter.com/dwongresearch" target="_blank">
+    <i class="large twitter icon" title="Twitter"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a class="item" href="https://github.com/dwongresearch" target="_blank">
+    <i class="large github icon" title="GitHub"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+</nav>
+
+    </article>
+  </div>
+
+  <div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    
+  </div>
+
+  
+</div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    
+    <div class="ui segment" id="dream-search">
+  <div class="ui search">
+    <div class="ui transparent input">
+      <input class="prompt" type="text" placeholder="Search" />
+    </div>
+    <div class="results"></div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $.getJSON('https:\/\/www.dwongresearch.com\//index.json', function (data) {
+      $('.ui.search').search({
+        source: data,
+        searchFields: ['title'],
+        showNoResults: false,
+      })
+    })
+  })
+</script>
+<script src="/js/search.js"></script>
+
+    
+
+    
+
+    <script>
+  window.background = "#fff"
+  window.defaultDark =  null 
+  window.backgroundDark =  null 
+  window.backgroundImageDark =  null 
+  window.darkNav =  null 
+  window.maxTags =  null 
+  window.hasTwitterEmbed =  true 
+  window.fixedNav =  true 
+
+  if (window.hasTwitterEmbed) {
+    
+    window.twttr = (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {}
+      if (d.getElementById(id)) return t
+      js = d.createElement(s)
+      js.id = id
+      js.src = 'https://platform.twitter.com/widgets.js'
+      fjs.parentNode.insertBefore(js, fjs)
+
+      t._e = []
+      t.ready = function (f) {
+        t._e.push(f)
+      }
+
+      return t
+    })(document, 'script', 'twitter-wjs')
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/theme.js"></script>
+
+    
+
+
+
+<script src="/js/scrollToTop.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1"></script>
+<script src="/js/post.js" defer></script>
+
+
+    
+
+    
+  </body>
+</html>

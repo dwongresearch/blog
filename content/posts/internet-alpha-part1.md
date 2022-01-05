@@ -1,7 +1,7 @@
 ---
 title: "Finding Alpha on the Internet Part 1"
 date: 2022-01-04T21:46:34+08:00
-draft: true
+draft: false
 cover: /posts/covers/pexels-andrea-piacquadio-941555.jpg
 author: Derek Wong
 categories:

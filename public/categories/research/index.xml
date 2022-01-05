@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Research on DWongResearch Blog</title>
+    <link>https://www.dwongresearch.com/categories/research/</link>
+    <description>Recent content in Research on DWongResearch Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 04 Jan 2022 21:46:34 +0800</lastBuildDate><atom:link href="https://www.dwongresearch.com/categories/research/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Finding Alpha on the Internet Part 1</title>
+      <link>https://www.dwongresearch.com/posts/internet-alpha-part1/</link>
+      <pubDate>Tue, 04 Jan 2022 21:46:34 +0800</pubDate>
+      
+      <guid>https://www.dwongresearch.com/posts/internet-alpha-part1/</guid>
+      <description>&lt;p&gt;The internet is teeming with resources for potential alpha. How do you separate the wheat from the chaff? In this series of blog posts, I will explain my process for identifying sources worth diving deeper into and extracting some kind of benefit to a portfolio or strategy. This will be a side-by-side view of my workflow as an individual. As of now, I have no idea what even to research or how I will go about doing it. So let us begin.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

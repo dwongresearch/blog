@@ -2,22 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on DWongResearch Blog</title>
-    <link>http://dwongresearch.com/posts/</link>
+    <link>https://www.dwongresearch.com/posts/</link>
     <description>Recent content in Posts on DWongResearch Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 08 Aug 2021 21:16:24 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 04 Jan 2022 21:46:34 +0800</lastBuildDate><atom:link href="https://www.dwongresearch.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Finding Alpha on the Internet Part 1</title>
+      <link>https://www.dwongresearch.com/posts/internet-alpha-part1/</link>
+      <pubDate>Tue, 04 Jan 2022 21:46:34 +0800</pubDate>
+      
+      <guid>https://www.dwongresearch.com/posts/internet-alpha-part1/</guid>
+      <description>&lt;p&gt;The internet is teeming with resources for potential alpha. How do you separate the wheat from the chaff? In this series of blog posts, I will explain my process for identifying sources worth diving deeper into and extracting some kind of benefit to a portfolio or strategy. This will be a side-by-side view of my workflow as an individual. As of now, I have no idea what even to research or how I will go about doing it. So let us begin.&lt;/p&gt;</description>
+    </item>
     
-	<atom:link href="http://dwongresearch.com/posts/index.xml" rel="self" type="application/rss+xml" />
-    
+    <item>
+      <title>Trailing Stops in Various AutoCorrelation and Volatility Regimes</title>
+      <link>https://www.dwongresearch.com/posts/trailingstopsautocorrelatedvolatility/</link>
+      <pubDate>Wed, 22 Sep 2021 20:34:36 +0800</pubDate>
+      
+      <guid>https://www.dwongresearch.com/posts/trailingstopsautocorrelatedvolatility/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Abstract:&lt;/strong&gt; I examine trailing stops in real markets and various autocorrelation and volatility regimes using synthetic data. Exits are notoriously under-studied and may be a source of edge. I examine three key hypotheses using my take on Tom Basso&amp;rsquo;s random entry method to remove entry from the equation.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Massive Passives Effect on Commodities</title>
-      <link>http://dwongresearch.com/posts/passive-passives-effect-on-commodities/</link>
+      <link>https://www.dwongresearch.com/posts/passive-passives-effect-on-commodities/</link>
       <pubDate>Sun, 08 Aug 2021 21:16:24 +0800</pubDate>
       
-      <guid>http://dwongresearch.com/posts/passive-passives-effect-on-commodities/</guid>
-      <description>&lt;p&gt;&amp;ldquo;Massive Passive” has heavily influenced the equities sector, completely changing the dynamics of the stock market and the make-up of its participants. Now more people are getting exposure to commodities via long-only indexes and swap products. I am taking Irwin and Sanders&amp;rsquo;s paper &lt;em&gt;&lt;a href=&#34;https://www.oecd-ilibrary.org/docserver/5kmd40wl1t5f-en.pdf?expires=1628413452&amp;amp;id=id&amp;amp;accname=guest&amp;amp;checksum=3B53FAD94ECD6D2C200D23AD34C0FA5E&#34;&gt;The Impact of Index and Swap Funds on Commodity Futures Markets&lt;/a&gt;&lt;/em&gt; and extending it.&lt;/p&gt;</description>
+      <guid>https://www.dwongresearch.com/posts/passive-passives-effect-on-commodities/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Introduction:&lt;/strong&gt; &amp;ldquo;Massive Passive” has heavily influenced the equities sector, completely changing the dynamics of the stock market and the make-up of its participants. Now more people are getting exposure to commodities via long-only indexes and swap products. I am taking Irwin and Sanders&amp;rsquo;s paper &lt;em&gt;&lt;a href=&#34;https://www.oecd-ilibrary.org/docserver/5kmd40wl1t5f-en.pdf?expires=1628413452&amp;amp;id=id&amp;amp;accname=guest&amp;amp;checksum=3B53FAD94ECD6D2C200D23AD34C0FA5E&#34;&gt;The Impact of Index and Swap Funds on Commodity Futures Markets&lt;/a&gt;&lt;/em&gt; and extending it.&lt;/p&gt;</description>
     </item>
     
   </channel>

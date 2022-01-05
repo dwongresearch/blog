@@ -53,12 +53,10 @@ We are faced with a barrage of information all the time. I have a backlog of boo
 I have narrowed it down to two ideas, one from SSRN and the other from a blog. I have only scanned through after reading the abstracts. This is a game of failing fast, if for any reason I read something and it does not pass the smell test it goes in the bin. 
 
 1. [The Search for Crisis Alpha: Weathering the Storm Using Relative Momentum](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2739520) By Nathan Faber of [Newfound Research](https://www.thinknewfound.com/)
-
-2. 1. Crisis alpha always interests me as I am a divergent trader at heart and believe in the power of protecting the downside. Quickly reading the abstract, it seems relatively straightforward and uses liquid fixed-income ETFs for which data should be easy to obtain.
+2. Crisis alpha always interests me as I am a divergent trader at heart and believe in the power of protecting the downside. Quickly reading the abstract, it seems relatively straightforward and uses liquid fixed-income ETFs for which data should be easy to obtain.
 
 3. [Using an unsupervised machine learning algorithm to detect different stock market regimes](https://medium.datadriveninvestor.com/using-an-unsupervised-machine-learning-algorithm-to-detect-different-stock-market-regimes-5c6354a1826a) by [Ethan Johnson-Skinner,](https://ethanskinner94.medium.com/?source=post_page-----5c6354a1826a-----------------------------------)
-
-4. 1. Regime detection and Gaussian Mixture Models are in my interest category and getting more into machine learning, so I will probably learn something while I build. Again, keeping data and resources in mind when evaluating as an independent. This article comes with python code and has 2 implementations. One uses only S&P 500 returns, which will be easy to source, and another uses macroeconomic data (which is just the 10 Year yield), so it should not be too bad. 
+4. Regime detection and Gaussian Mixture Models are in my interest category and getting more into machine learning, so I will probably learn something while I build. Again, keeping data and resources in mind when evaluating as an independent. This article comes with python code and has 2 implementations. One uses only S&P 500 returns, which will be easy to source, and another uses macroeconomic data (which is just the 10 Year yield), so it should not be too bad. 
 
 <!-- Begin Mailchimp Signup Form -->
 <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">

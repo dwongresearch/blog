@@ -18,6 +18,8 @@ github = "dwongresearch"
 siteStartYear = 2021
 twitter="dwongresearch"
 
+avatar = "/imgs/DWongResearchLogo.png"
+favicon = "/imgs/favicon.ico"
 # Google Analytics 4
 googleAnalyticsID = "G-LNMFPS47RB"
 

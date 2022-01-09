@@ -1,3 +1,28 @@
+.ui.card.dream-card {
+font-size:16px;
+
+}
+
+.markdown-body .main {	
+font-size: 16px;
+}
+
+.ui.large.header {
+font-size: 2.5rem;
+}
+
+.ui.medium.header {
+font-size: 1.5rem;
+}
+
+.ui.large.header .sub.header{
+font-size: 1.33rem;
+}
+
+#TableOfContents{
+font-size: 16px;
+}
+
 code.has-jax {
     -webkit-font-smoothing: antialiased;
     background: inherit !important;

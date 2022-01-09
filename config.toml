@@ -36,10 +36,11 @@ fixedNav = true
 collapsibleTags = true
 collapseBySummary = true
 
-customCSS = ["css/custom.css"]
-
 # mathjax
 mathjax = true
+
+ [params.advanced]
+ customCSS = ["/css/custom.css"]
 
 [taxonomies]
   category = 'categories'
@@ -49,3 +50,4 @@ mathjax = true
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+

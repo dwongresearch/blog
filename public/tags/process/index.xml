@@ -6,7 +6,16 @@
     <description>Recent content in Process on DWongResearch Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 04 Jan 2022 21:46:34 +0800</lastBuildDate><atom:link href="https://www.dwongresearch.com/tags/process/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 12 Jan 2022 21:43:42 +0800</lastBuildDate><atom:link href="https://www.dwongresearch.com/tags/process/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Finding Alpha on the Internet [Part 2]</title>
+      <link>https://www.dwongresearch.com/posts/internet-alpha-part2/</link>
+      <pubDate>Wed, 12 Jan 2022 21:43:42 +0800</pubDate>
+      
+      <guid>https://www.dwongresearch.com/posts/internet-alpha-part2/</guid>
+      <description>&lt;p&gt;I was continuing from the last post. I will explain why I picked the paper I did, answer the questions from the &lt;a href=&#34;https://www.dwongresearch.com/posts/internet-alpha-part1/&#34;&gt;previous post&lt;/a&gt;, and show my note-taking and thought process. After reading hundreds if not thousands of whitepapers, blogs, or articles, this is my distilled version of how I approach it. I will document this for the first time. It may be different from how others approach it. Over time you will get your own approach. So let&amp;rsquo;s hit the stacks.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Finding Alpha on the Internet Part 1</title>
       <link>https://www.dwongresearch.com/posts/internet-alpha-part1/</link>

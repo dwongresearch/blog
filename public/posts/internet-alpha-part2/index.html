@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Finding Alpha on the Internet [Part 2] | DWongResearch Blog</title>
+
+    
+<link href="/imgs/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+
+
+
+<meta name="author" content="Derek Wong" />
+<meta name="description" content="I was continuing from the last post. I will explain why I picked the paper I did, answer the questions from the previous post, and show my note-taking and thought process. After reading hundreds if not thousands of whitepapers, blogs, or articles, this is my distilled version of how I approach it. I will document this for the first time. It may be different from how others approach it. Over time you will get your own approach. So let&amp;rsquo;s hit the stacks.
+" />
+
+
+
+<meta name="generator" content="Hugo 0.88.1" />
+
+<link rel="canonical" href="https://www.dwongresearch.com/posts/internet-alpha-part2/" />
+
+
+<meta property="og:title" content="Finding Alpha on the Internet [Part 2]" />
+<meta property="og:description" content="I was continuing from the last post. I will explain why I picked the paper I did, answer the questions from the previous post, and show my note-taking and thought process. After reading hundreds if not thousands of whitepapers, blogs, or articles, this is my distilled version of how I approach it. I will document this for the first time. It may be different from how others approach it. Over time you will get your own approach. So let&rsquo;s hit the stacks." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.dwongresearch.com/posts/internet-alpha-part2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-12T21:43:42+08:00" />
+<meta property="article:modified_time" content="2022-01-12T21:43:42+08:00" />
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Finding Alpha on the Internet [Part 2]"/>
+<meta name="twitter:description" content="I was continuing from the last post. I will explain why I picked the paper I did, answer the questions from the previous post, and show my note-taking and thought process. After reading hundreds if not thousands of whitepapers, blogs, or articles, this is my distilled version of how I approach it. I will document this for the first time. It may be different from how others approach it. Over time you will get your own approach. So let&rsquo;s hit the stacks."/>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<link rel="stylesheet" href="/css/icomoon.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/css/OverlayScrollbars.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css">
+<link rel="stylesheet" href="/css/site.css" />
+
+<style>
+  .ui.header a:not(.item, .ui.button):hover {
+    text-decoration: underline;
+  }
+
+  
+
+  
+
+  
+  body.default {
+    
+    background-color: #fff;
+    
+
+    
+  }
+  
+
+  
+</style>
+
+
+    
+
+
+
+
+
+
+
+    
+    <link rel="stylesheet" href="/css/custom.css" />
+    
+  </head>
+
+  <body class="default">
+    
+<nav class="ui secondary menu dream-menu dream-nav">
+
+  <a class="item dream-flip-toggle" title="Flip it!">
+    <i class="large link bullseye icon"></i>
+  </a>
+  <a class="item" href="https://www.dwongresearch.com/" title="Home">
+    <i class="large link home icon"></i>
+  </a>
+  
+  
+  <a class="item" title="Search" onclick="toggleSearch(event)">
+    <i class="large link search icon"></i>
+  </a>
+  
+</nav>
+
+    <div class="flip-container">
+      <div class="flipper">
+        <section class="front">
+          <div class="dream-max-width">
+            
+<div class="ui relaxed centered grid dream-grid dream-grid-single">
+  
+  
+  
+  
+
+  
+  <aside class="sixteen wide mobile sixteen wide tablet three wide computer column dream-single-aside">
+    
+    <div class="ui segment toc">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#selection">Selection</a></li>
+    <li><a href="#notes-and-highlights">Notes and Highlights</a></li>
+    <li><a href="#gathering-resources">Gathering Resources</a></li>
+    <li><a href="#mise-en-place">Mise en place</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+    
+
+    
+    <div class="ui segment">
+  <button
+    class="ui circular icon button save-as-image"
+    title="Save as image"
+    onclick="savePostAsImg()">
+    <i class="save icon"></i>
+  </button>
+  <a href="https://twitter.com/intent/tweet?text=Finding%20Alpha%20on%20the%20Internet%20%5bPart%202%5d&url=https%3a%2f%2fwww.dwongresearch.com%2fposts%2finternet-alpha-part2%2f" class="ui circular twitter icon button">
+    <i class="twitter icon"></i>
+  </a>
+  <a href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fwww.dwongresearch.com%2fposts%2finternet-alpha-part2%2f" class="ui circular facebook icon button">
+    <i class="facebook icon"></i>
+  </a>
+</div>
+
+    
+  </aside>
+  
+  <div class="sixteen wide mobile sixteen wide tablet ten wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">Finding Alpha on the Internet [Part 2]<span class="sub header">
+            <span class="left">
+              @
+              
+                
+                  Derek Wong
+                
+              
+
+              | 
+                  
+                    Wednesday, Jan 12, 2022
+                  
+                
+
+              | 11 minutes read
+
+              
+              | Update at
+                
+                  
+                    Wednesday, Jan 12, 2022
+                  
+                
+              
+            </span>
+
+            
+          </span>
+        </h1>
+      </header>
+
+      <article class="main">
+        
+
+        <p>I was continuing from the last post. I will explain why I picked the paper I did, answer the questions from the <a href="https://www.dwongresearch.com/posts/internet-alpha-part1/">previous post</a>, and show my note-taking and thought process. After reading hundreds if not thousands of whitepapers, blogs, or articles, this is my distilled version of how I approach it. I will document this for the first time. It may be different from how others approach it. Over time you will get your own approach. So let&rsquo;s hit the stacks.</p>
+<h2 id="selection">Selection</h2>
+<p>After reading both articles, <a href="https://medium.datadriveninvestor.com/using-an-unsupervised-machine-learning-algorithm-to-detect-different-stock-market-regimes-5c6354a1826a">Using an unsupervised machine learning algorithm to detect different stock market regimes</a> by <a href="https://ethanskinner94.medium.com/?source=post_page-----5c6354a1826a-----------------------------------">Ethan Johnson-Skinner,</a> over <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2739520">The Search for Crisis Alpha: Weathering the Storm Using Relative Momentum</a> By Nathan Faber of <a href="https://www.thinknewfound.com/">Newfound Research</a>, I found them equally intriguing. Again we come back to the dichotomy of something I think will be helpful (Crisis Alpha) or something that will push the limits of my knowledge (Machine learning and Gaussian mixture models). While reading them both, I was indifferent. <em>One thing that was abundantly clear on replication was the data complexity of the Faber paper.</em></p>
+<p>The data required for replication is complex in the Newfound paper because a few steps are laid out in a footnote on page 6 (Yes, you have to read the footnotes). Specifically, you need to create constant maturity indices <a href="http://people.stern.nyu.edu/adamodar/">Damadaraon style</a> except for the 7 year, which starts only in 1969 when the rest start in 1962. Then from 1987 January to 1993 September, the 20 year bond did not trade. So at the get-go, you are already making a lot of data assumptions and proxies when in the end, you would like to use a table of fixed income ETFs (SHY, IEI, IEF, TLH, and TLT), which are relatively young compared to the constant maturity indexes we measure against.</p>
+<p>I think that this paper deserves more attention and may come back to it in the future. <em>For this series of articles, the complexity of the idea is not as important as the ability for a reader to follow along.</em> The other paper by Johnson-Skinner comes with python code (I have not tested it yet) and uses simply accessible data sources as far as I could tell when looking at the data requirements.</p>
+<p>So diving into <strong>Using an unsupervised machine learning algorithm to detect different stock market regimes</strong>, we go.</p>
+<h2 id="notes-and-highlights">Notes and Highlights</h2>
+<p><u>So the first thing I do is highlight liberally.</u> It seems almost like I copied the entire article, which is not long. But each of these pieces will give me a point of information to interact with. I even highlight things that seem repetitive to I already know. The reason is it will keep context if I ever need to go back. I store all of these highlights and notes in a digital platform that is searchable to if I ever come back later, it is easy.</p>
+<p><em>You can skip this part and go to the [next section](## Gathering Resources) if you wish. It is maybe a bit bland.</em></p>
+<p>The top bullet point is the direct quote followed by my thoughts while reading it.</p>
+<ul>
+<li>
+<p>The Gaussian Mixture model (GMM) will be used to detect different moods in the stock market. The GMM model will be applied twice: first using price data, and subsequently with macro-economical data.</p>
+</li>
+<li>
+<ul>
+<li>For the setup, we have 2 experiments. One with price data only (single feature) and another with additional macro-economical data (2 features)</li>
+</ul>
+</li>
+<li>
+<p>The difference between the two approaches is the use of labeled datasets: supervised learning uses labeled input and output data, whereas an unsupervised learning algorithm does not.</p>
+</li>
+<li>
+<ul>
+<li>Definition of supervised vs. unsupervised learning. We will not need any labeling because this method is unsupervised.</li>
+</ul>
+</li>
+<li>
+<p>The gaussian mixture model is the overlapping of multi-normal distributions in p-dimensional space. The dimension of the space is generated by the number of variables.</p>
+</li>
+<li>
+<ul>
+<li>Definition of what a GMM is, simply a collection of multiple Gaussian distributions that overlap in p-dimensional space.</li>
+</ul>
+</li>
+<li>
+<p>For example, if we had one variable (S&amp;P 500 returns), the GMM would be fit based one dimensional data. The GMM can be used to model the state of the stock market along with other financial applications. One characteristic from the stock market returns, is heavy tails, which are generated from days of high volatility. The ability to capture highly volatile days in the tails of the distribution is important for capturing information in the modelling process.</p>
+</li>
+<li>
+<ul>
+<li>GMM allows for the capture of heavy tails generated by dates of high volatility. This is an advantage over a standard gaussian.</li>
+</ul>
+</li>
+<li>
+<p>One main benefit of using the GMM for unsupervised clustering is the space encompassing each cluster can take on a ellipse shape. Gaussian mixture models take not only means into account but also covariance to form a cluster.</p>
+</li>
+<li>
+<ul>
+<li>Each cluster takes on an ellipse shape, and the mixture model will also take into account covariance.</li>
+</ul>
+</li>
+<li>
+<p>it can be hard to put intuition behind the resulting market conditions.</p>
+</li>
+<li>
+<ul>
+<li>The classic machine learning excuse is that we cannot intuit the reasoning behind a black box.</li>
+</ul>
+</li>
+<li>
+<p>The goal of the Gaussian Mixture Model is to assign data points to one of n multi-normal distributions. To do this, an Expectation Maximization (EM) algorithm is used to solve the parameters of each multi-normal distribution.</p>
+</li>
+<li>
+<ul>
+<li>We are going to solve using Expectation Maximization. So whats that? Quick google search and <a href="https://machinelearningmastery.com/expectation-maximization-em-algorithm/">A Gentle Introduction to Expectation-Maximization (EM Algorithm)</a></li>
+<li>After reading some background information, I can now see that it is a Maximum Likelihood Estimation.</li>
+</ul>
+</li>
+<li>
+<p><strong>Step 1: Randomly initialize the starting normal distribution parameters</strong></p>
+</li>
+<li>
+<p><strong>Step 2: Preform the E-step or the expectation step</strong></p>
+</li>
+<li>
+<p><strong>Step 3: Preform the M-step of the maximization step</strong></p>
+</li>
+<li>
+<p><strong>Step 4: Calculate the log likelihood of the joint probability of (Data given fraction of each state , mean , covariance)</strong></p>
+</li>
+<li>
+<p><strong>Step 5: Repeat steps 2–4 until the log-likelihood converges</strong></p>
+</li>
+<li>
+<ul>
+<li>This part is critical, it is the algorithm used to solve the parameters. We will need this later, but it also builds on the link I referenced, which describes the E-step and M-Step in more detail.</li>
+</ul>
+</li>
+<li>
+<p>The probability that each data point belongs to a certain cluster is given below. Based on the indexing, we are given a probability of each data point belonging to each induvial cluster.</p>
+</li>
+<li>
+<p>Since it is a probability matrix, the values will sum to 1 under index ‘i.’</p>
+</li>
+<li>
+<p><img src="https://miro.medium.com/max/245/1*SPzMJE_2QRevviM0X9pWVQ.png" alt="img"></p>
+</li>
+<li>
+<p>The interpretation is as follows: the index i represents each data point or vector. The index c represents that given cluster; if we were to have three clusters (c) would be 1 or 2 or 3.</p>
+<ul>
+<li>
+<p>This is where knowing mathematical notation and coding comes in handy. We are going to need to break up the formula into parts that we can understand.</p>
+</li>
+<li>
+<p>First what is N? <img src="https://miro.medium.com/max/289/1*zQH5U6mRN5BT1YHQvaeZSg.png" alt="img"></p>
+<ul>
+<li>The multivariable Gaussian formula is given where mu and sigma are parameters that require estimating using the EM algorithm.</li>
+</ul>
+</li>
+<li>
+<p>So the numerator is $\pi_c$, what the heck is this? So I am inferring here using my prior knowledge but I could be wrong. It was giving that this is an element of a probability matrix. So this value is a probability so $r_{ic}$ must be the probability that $x_i$ is generated by cluster $c$. Hence in a Bayesian framework $\pi_c$ must be a prior estimate of component $c$.</p>
+</li>
+<li>
+<p>the $\Sigma$ means we are going to have to iterate from $k=1$ to $K$ for all estimates of $\pi_k$ which should sum to 1 assuming a uniform distribution prior.</p>
+</li>
+<li>
+<p>Honestly its a boatload of inference here, but this is my first time with GMMs so please bare with me. I could also be wrong as using this paper along does not give a formal definition.</p>
+</li>
+<li>
+<p>So basically in mathematical terms we will calculate
+$$
+\forall i,c\<br>
+r_{i,c}=\frac{\pi_c \mathcal{N}(x_i | \mu, \Sigma_c)}{\Sigma^{K}_{k=1}\pi_k\mathcal{N}(x_i |\mu_k, \Sigma_k)}
+$$</p>
+</li>
+<li>
+<p>In programming terms we are going to have 3 loops as far as I can see now. One each for $i$, $c$, and $k$. stored in a matrix of size ($i$, $c$)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>An additional key concept is that each Gaussian distribution in our space is unbounded and overlapping with one another. Based on the location of the data point, a probability is assigned to it from each distribution. The probabilities for each data point belonging to any of the clusters will sum to 1.</p>
+</li>
+<li>
+<ul>
+<li>This confirms my hypothesis above, I think.</li>
+</ul>
+</li>
+<li>
+<p>Lastly, since the EM algorithm is an iterative process, we need to gauge the progress at each step to know when to stop. To do this, we use the log-likelihood function for the model to measure when our parameters are converging.</p>
+</li>
+<li>
+<ul>
+<li>This implies that the step we did above was actually the E step and now we are in the M step. The convergence of log-likelihood is well documented.</li>
+</ul>
+</li>
+<li>
+<p>Here I will assume three states — BEARISH , NEURAL, BULLISH.</p>
+</li>
+<li>
+<ul>
+<li>This is reasonable</li>
+</ul>
+</li>
+<li>
+<p>I will be using the log returns of the S&amp;P500 to fit the GMM.</p>
+</li>
+<li>
+<ul>
+<li>Log returns are always better than percent returns.</li>
+</ul>
+</li>
+<li>
+<p>The States for the Gaussian mixture model are found using the Gaussian Mixture model from sklearn and the input data is the daily return for the S&amp;P500.</p>
+</li>
+<li>
+<ul>
+<li>Sure let us use a sklearn, but I will check the documentation and see if the implementation is as I think the algorithm works.</li>
+</ul>
+</li>
+<li>
+<p>One issue that may arise is convergence. Not in the sense of meeting the criteria of a certain threshold in the EM algorithm, but rather based on the initial conditions, different distributions may take shape depending on the run. Further investigation will be required here.</p>
+</li>
+<li>
+<ul>
+<li>It is always an issue with estimation</li>
+</ul>
+</li>
+<li>
+<p>To begin and demonstrate the GMM visually, I will use two-dimensional data or two variables for simplicity. Each corresponding cluster is a multi-normal distribution in three dimensions. In this example, the first dimension is the inflation value (let’s call this X), the second dimension is the S&amp;P500 monthly % return (let’s call this Y) and the third dimension is the joint probability of X&amp;Y. In other words given a certain combination of X and Y what is the probability.</p>
+</li>
+<li>
+<ul>
+<li>How do you create this 3rd feature that was not explained above, unless this comes from step 4. I am not clear at this point because no formula was given.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Notes summary</strong></p>
+<p>My key takeaways:</p>
+<ul>
+<li>GMMs can model fat tails using purely a mix of normal distributions</li>
+<li>We need 2 steps to make this function the expectation and maximization steps.</li>
+<li>In the end, we will have 3 dimensions, was this generated by step 4? If so, how do we complete that?</li>
+</ul>
+<h2 id="gathering-resources">Gathering Resources</h2>
+<ul>
+<li>
+<p><strong>Data</strong></p>
+</li>
+<li>
+<ul>
+<li>We need SPY close data for experiment one</li>
+<li>we need SPY close data and inflation data for experiment 2</li>
+</ul>
+</li>
+</ul>
+<p>We can get SPY data from yahoo finance or another free website. From the comments of the code snippets</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> multivariate_normal
+<span style="color:#f92672">from</span> sklearn.mixture <span style="color:#f92672">import</span> GaussianMixture
+<span style="color:#75715e">#&#39;10YrYeild&#39;:treasury_yeild.Close.values</span>
+<span style="color:#75715e"># 0. Create dataset</span>
+sp_list <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;SPY&#39;</span>]
+symbols_list <span style="color:#f92672">=</span> sp_list
+start <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2008-01-01&#39;</span>
+print(<span style="color:#e6db74">&#39;S&amp;P500 Stock download&#39;</span>)
+r <span style="color:#f92672">=</span> yf<span style="color:#f92672">.</span>download(symbols_list, start,end)
+daily_returns <span style="color:#f92672">=</span> (r<span style="color:#f92672">.</span>Close<span style="color:#f92672">.</span>pct_change()) <span style="color:#75715e">#Daily log returns Close price for each day -  Y observations </span>
+daily_returns <span style="color:#f92672">=</span> daily_returns<span style="color:#f92672">.</span>iloc[<span style="color:#ae81ff">1</span>:]
+X <span style="color:#f92672">=</span> daily_returns<span style="color:#f92672">.</span>values
+GMM <span style="color:#f92672">=</span> GaussianMixture(n_components<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)<span style="color:#f92672">.</span>fit(X<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>)) <span style="color:#75715e"># Instantiate and fit the model</span>
+
+</code></pre></div><p><strong>The code and the comments/article have an issue here.</strong> Although the report says we use inflation data and comments, it seems that the 10-year yield is the proxy. This code snippet doesn&rsquo;t download that data. <em>We are going to have to deal with that ambiguity.</em> Often, we will see that there is <em>critical</em> information missing and take the bits of clues we have to piece something together.</p>
+<ul>
+<li>
+<p><strong>Code</strong></p>
+</li>
+<li>
+<p>Python packages required:</p>
+</li>
+<li>
+<ul>
+<li>pandas, NumPy, DateTime, scipy, sklearn</li>
+</ul>
+</li>
+</ul>
+<h2 id="mise-en-place">Mise en place</h2>
+<p>Now it is time to get everything ready. We have read the article and understand the current requirements. We have a potential place to download free data from (yahoo finance). However, we are also left with an ambiguity, where is this 10-year yield coming from and how are we supposed to use it?</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Let&rsquo;s revisit our questions from the previous article.</p>
+<ol>
+<li>
+<p>Can I understand the basic principles of why this should work?</p>
+</li>
+<li>
+<ol>
+<li>Yes, we use multiple Gaussians and 2 steps of expectation estimation and log-likelihood maximization.</li>
+</ol>
+</li>
+<li>
+<p>What resources do I need to put together to replicate this (data, code, packages, study some background information)?</p>
+</li>
+<li>
+<ol>
+<li>We found a data source, and what data is required SPY and 10-year yields</li>
+<li>Code-wise, we have an ambiguity. We cannot see where there was a usage of the 10 year yield</li>
+<li>We have a package list for python code that we will need to install if we don&rsquo;t have it.</li>
+<li>Yes, we needed some background information to understand this article, which was linked in the highlights section.</li>
+</ol>
+</li>
+<li>
+<p>How do I replicate this as close to the paper as possible? If there are some gaps in the logic, or things are vague, what assumptions do I need to make? Are the logical leaps too large?</p>
+</li>
+<li>
+<ol>
+<li>If I can infer how the 10 year yields were used, replication should be possible. That does cause a gap in the logic. The logical leap isn&rsquo;t too large, the writing says it should be used and the code implies its used. But I cannot see it ever being used. Its not hard to give it a try with it. There is not such a significant gap in understanding that I would not be able to take the next step.</li>
+</ol>
+</li>
+</ol>
+<p>So there you have it. Now for the next section, my actual replication, and code.</p>
+      </article>
+    </section>
+
+    
+
+    
+
+    
+  </div>
+</div>
+
+
+            <footer class="ui basic center aligned segment" style="background-color: transparent;">
+              
+              <p>© 2021 - 2022 DWongResearch Blog</p>
+              
+
+              <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</p>
+
+              
+            </footer>
+          </div>
+        </section>
+        <section class="back">
+          <div class="dream-max-width">
+            <header class="ui basic very padded segment dream-header">
+  
+  <div class="ui small circular image">
+    <img src="/imgs/DWongResearchLogo.png" alt="avatar" />
+  </div>
+  
+
+  <div class="content">
+    <h1 class="ui medium header">DWongResearch Blog<span class="sub header">Untangling Our World</span>
+    </h1>
+
+    <article class="ui horizontal list">
+      
+      <a class="item" href="/posts">
+        <i class="archive icon" title="Archives"></i>
+      </a>
+      
+      <a class="item" href="/categories">
+        <i class="th list icon" title="All Categories"></i>
+      </a>
+      <a class="item" href="/tags">
+        <i class="tags icon" title="All Tags"></i>
+      </a>
+    </article>
+
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+
+    
+
+    
+    
+    
+          <div class="dream-tags">
+          
+          
+          
+            <a class="ui label" href="/tags/autocorrelation/" title="Autocorrelation">
+              Autocorrelation
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/commodities/" title="Commodities">
+              Commodities
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/passive/" title="Passive">
+              Passive
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/process/" title="Process">
+              Process
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/research/" title="Research">
+              Research
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/syntheticdata/" title="SyntheticData">
+              SyntheticData
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/trailingstop/" title="TrailingStop">
+              TrailingStop
+            </a>
+          
+          
+          
+            <a class="ui label" href="/tags/volatility/" title="Volatility">
+              Volatility
+            </a>
+          
+          </div>
+    
+
+    
+  </div>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+ <script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+       <script type="text/x-mathjax-config">
+         MathJax.Hub.Config({
+           tex2jax: {
+             inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+             processEscapes: true
+           }
+         });
+       </script>
+       <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+       
+<meta property="og:title" content="Finding Alpha on the Internet [Part 2]" />
+<meta property="og:description" content="I was continuing from the last post. I will explain why I picked the paper I did, answer the questions from the previous post, and show my note-taking and thought process. After reading hundreds if not thousands of whitepapers, blogs, or articles, this is my distilled version of how I approach it. I will document this for the first time. It may be different from how others approach it. Over time you will get your own approach. So let&rsquo;s hit the stacks." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.dwongresearch.com/posts/internet-alpha-part2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-12T21:43:42+08:00" />
+<meta property="article:modified_time" content="2022-01-12T21:43:42+08:00" />
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LNMFPS47RB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LNMFPS47RB');
+</script>
+
+
+
+</header>
+
+
+
+
+<div class="ui relaxed grid dream-grid dream-back">
+  
+  
+  
+  <div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article class="ui segment markdown-body">
+      <div class="ui medium header">Disclaimer</div>
+      <p><strong>Not financial advice, no recommendations, only my own opinions. Nothing here constitutes a view or opinion from my employer. Please don&rsquo;t sue me.</strong></p>
+<p>Any content or statement on this website is not to encourage nor promote taking any trades, positions, or investments of any kind.  Any information contained in this website is for informational purposes only and to be taken as is. DWongResearch and the Author (Derek Wong) has done their best to ensure accurate information. Regardless of anything contrary, nothing available on this website should be understood as a recommendation, consult a licensed financial professional in your jurisdiction.</p>
+<p><strong>Intellectual property</strong></p>
+<p>I cannot and will not disclose any proprietary information or knowledge developed while working at my current employer or former employers. All research is done on my own and does not constitute any of my employers opinions. Anything you see here is done with publiclally available knowledge or the product of my own personal research done as a private individual.</p>
+    </article>
+  </div>
+  
+  <div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article class="ui segment markdown-body">
+      <div class="ui medium header">About Me</div>
+      <p>I am an alternatives portfolio manager focused on quantitatve and systematic methods using derivatives. Quantitative finance geek, macroeconomics enthusiast, and research addict.</p>
+
+    </article>
+  </div>
+  
+
+  <div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article class="ui segment">
+      <div class="ui medium header">Social Links</div>
+      <nav class="ui secondary menu dream-menu dream-socials">
+  
+  <a class="item" href="/index.xml">
+    <i class="large rss square icon" title="RSS"></i>
+  </a>
+  
+
+  
+  <a class="item" href="mailto:dwongresearch0@gmail.com">
+    <i class="large mail icon" title="Email"></i>
+  </a>
+  
+
+  
+  <a class="item" href="https://twitter.com/dwongresearch" target="_blank">
+    <i class="large twitter icon" title="Twitter"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a class="item" href="https://github.com/dwongresearch" target="_blank">
+    <i class="large github icon" title="GitHub"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+</nav>
+
+    </article>
+  </div>
+
+  <div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    
+  </div>
+
+  
+</div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    
+    <div class="ui segment" id="dream-search">
+  <div class="ui search">
+    <div class="ui transparent input">
+      <input class="prompt" type="text" placeholder="Search" />
+    </div>
+    <div class="results"></div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $.getJSON('https:\/\/www.dwongresearch.com\//index.json', function (data) {
+      $('.ui.search').search({
+        source: data,
+        searchFields: ['title'],
+        showNoResults: false,
+      })
+    })
+  })
+</script>
+<script src="/js/search.js"></script>
+
+    
+
+    
+
+    <script>
+  window.background = "#fff"
+  window.defaultDark =  null 
+  window.backgroundDark =  null 
+  window.backgroundImageDark =  null 
+  window.darkNav =  null 
+  window.maxTags =  null 
+  window.hasTwitterEmbed =  true 
+  window.fixedNav =  true 
+
+  if (window.hasTwitterEmbed) {
+    
+    window.twttr = (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {}
+      if (d.getElementById(id)) return t
+      js = d.createElement(s)
+      js.id = id
+      js.src = 'https://platform.twitter.com/widgets.js'
+      fjs.parentNode.insertBefore(js, fjs)
+
+      t._e = []
+      t.ready = function (f) {
+        t._e.push(f)
+      }
+
+      return t
+    })(document, 'script', 'twitter-wjs')
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/theme.js"></script>
+
+    
+
+
+
+<script src="/js/scrollToTop.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1"></script>
+<script src="/js/post.js" defer></script>
+
+
+    
+
+    
+  </body>
+</html>

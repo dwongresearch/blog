@@ -162,7 +162,7 @@
                   
                 
 
-              | 11 minutes read
+              | 12 minutes read
 
               
               | Update at
@@ -183,6 +183,7 @@
         
 
         <p>I was continuing from the last post. I will explain why I picked the paper I did, answer the questions from the <a href="https://www.dwongresearch.com/posts/internet-alpha-part1/">previous post</a>, and show my note-taking and thought process. After reading hundreds if not thousands of whitepapers, blogs, or articles, this is my distilled version of how I approach it. I will document this for the first time. It may be different from how others approach it. Over time you will get your own approach. So let&rsquo;s hit the stacks.</p>
+<p><em>Disclaimer: Not financial advice, only my own opinions. This is not to encourage nor promote taking any trades, positions, or investments of any kind.  Any information contained in this website is for informational purposes only and to be taken as is. DWongResearch and the Author (Derek Wong) has done their best to ensure accurate information. Regardless of anything contrary, nothing available on this website should be understood as a recommendation, consult a licensed financial professional in your jurisdiction.</em></p>
 <h2 id="selection">Selection</h2>
 <p>After reading both articles, <a href="https://medium.datadriveninvestor.com/using-an-unsupervised-machine-learning-algorithm-to-detect-different-stock-market-regimes-5c6354a1826a">Using an unsupervised machine learning algorithm to detect different stock market regimes</a> by <a href="https://ethanskinner94.medium.com/?source=post_page-----5c6354a1826a-----------------------------------">Ethan Johnson-Skinner,</a> over <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2739520">The Search for Crisis Alpha: Weathering the Storm Using Relative Momentum</a> By Nathan Faber of <a href="https://www.thinknewfound.com/">Newfound Research</a>, I found them equally intriguing. Again we come back to the dichotomy of something I think will be helpful (Crisis Alpha) or something that will push the limits of my knowledge (Machine learning and Gaussian mixture models). While reading them both, I was indifferent. <em>One thing that was abundantly clear on replication was the data complexity of the Faber paper.</em></p>
 <p>The data required for replication is complex in the Newfound paper because a few steps are laid out in a footnote on page 6 (Yes, you have to read the footnotes). Specifically, you need to create constant maturity indices <a href="http://people.stern.nyu.edu/adamodar/">Damadaraon style</a> except for the 7 year, which starts only in 1969 when the rest start in 1962. Then from 1987 January to 1993 September, the 20 year bond did not trade. So at the get-go, you are already making a lot of data assumptions and proxies when in the end, you would like to use a table of fixed income ETFs (SHY, IEI, IEF, TLH, and TLT), which are relatively young compared to the constant maturity indexes we measure against.</p>

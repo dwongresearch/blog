@@ -15,6 +15,8 @@ The internet is teeming with resources for potential alpha. How do you separate 
 
 <!--more-->
 
+*Disclaimer: Not financial advice, only my own opinions. This is not to encourage nor promote taking any trades, positions, or investments of any kind.  Any information contained in this website is for informational purposes only and to be taken as is. DWongResearch and the Author (Derek Wong) has done their best to ensure accurate information. Regardless of anything contrary, nothing available on this website should be understood as a recommendation, consult a licensed financial professional in your jurisdiction.*
+
 Let me set expectations. First off, if you found it on the internet, it's probably not 'alpha' in the purest sense of the undiscovered profitable phenomenon. That is completely fine. It still may end up being something that helps our overall portfolio or inspires us to do something innovative with it. To be perfectly honest, where this ends up will probably be a dud. I am coming from the perspective of a single, at-home quantitative researcher. I will be using python and as much free data to do this as possible. If I use some other source, it will be noted.
 
 Why are most ideas from the internet garbage? Well, there is survivorship bias in ideas. No one posts a bad backtest. Academics want their P values for publishing, not trading, and if it's excellent, you will not see it at all, and it will be cranking away returns in a room silently until it stops working. 

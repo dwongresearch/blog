@@ -21,6 +21,8 @@ draft: False
 
 <!--more-->
 
+*Disclaimer: Not financial advice, only my own opinions. This is not to encourage nor promote taking any trades, positions, or investments of any kind.  Any information contained in this website is for informational purposes only and to be taken as is. DWongResearch and the Author (Derek Wong) has done their best to ensure accurate information. Regardless of anything contrary, nothing available on this website should be understood as a recommendation, consult a licensed financial professional in your jurisdiction.*
+
 First, I am using more recent data as the Irwin study was done in 2010. I include precious metals that were not included in the original study. Third, I will examine the changes in the return distribution, volatility, and autocorrelation.
 
 ## The current state of passive commodity funds

@@ -21,6 +21,8 @@ I was continuing from the last post. I will explain why I picked the paper I did
 
 <!--more-->
 
+*Disclaimer: Not financial advice, only my own opinions. This is not to encourage nor promote taking any trades, positions, or investments of any kind.  Any information contained in this website is for informational purposes only and to be taken as is. DWongResearch and the Author (Derek Wong) has done their best to ensure accurate information. Regardless of anything contrary, nothing available on this website should be understood as a recommendation, consult a licensed financial professional in your jurisdiction.*
+
 ## Selection
 
 After reading both articles, [Using an unsupervised machine learning algorithm to detect different stock market regimes](https://medium.datadriveninvestor.com/using-an-unsupervised-machine-learning-algorithm-to-detect-different-stock-market-regimes-5c6354a1826a) by [Ethan Johnson-Skinner,](https://ethanskinner94.medium.com/?source=post_page-----5c6354a1826a-----------------------------------) over [The Search for Crisis Alpha: Weathering the Storm Using Relative Momentum](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2739520) By Nathan Faber of [Newfound Research](https://www.thinknewfound.com/), I found them equally intriguing. Again we come back to the dichotomy of something I think will be helpful (Crisis Alpha) or something that will push the limits of my knowledge (Machine learning and Gaussian mixture models). While reading them both, I was indifferent. *One thing that was abundantly clear on replication was the data complexity of the Faber paper.*
